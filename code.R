@@ -33,3 +33,24 @@ ggplot(
   data = activeTracking.melt
   ,aes(y=TrkError,x=ActiveShare,group=numStocks,colour=numStocks)) +
   geom_line() + theme_bw() + geom_point()
+
+
+require(rCharts)
+d1 <- dPlot(
+  TrkError ~ ActiveShare,
+  groups = c("ActiveShare","numStocks"),
+  data = activeTracking.melt,
+  type = 'line',
+  xAxis = list(type = "addMeasureAxis"),
+  yAxis = list(outputFormat = ".2f")
+)
+d1
+
+n1 <- nPlot(
+  TrkError ~ ActiveShare,
+  group = "numStocks",
+  data = activeTracking.melt,
+  type = 'lineChart'
+)
+n1$chart ( useInteractiveGuideline = T )
+n1$publish(description = "rCharts+nvd3 | PIMCO Active Share Research")
